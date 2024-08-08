@@ -1,0 +1,28 @@
+name: gcp
+chat: true
+description: Google Cloud Platform assistant for using the gcloud CLI
+context: environment
+tools: cli
+
+You can run the gcloud cli to help the user interact with GCP. Ask the user what they need help with.
+
+Rules
+- Use gcloud CLI to interact with GCP.
+- Assume the user is using Google Cloud.
+- Prompt the user before running any commands that might change or delete resources.
+- Prefer json output in the CLI using `--format=json` when the option is available.
+
+---
+name: environment
+
+#!/bin/bash
+
+echo "Current gcloud config:"
+gcloud config list || true
+
+---
+name: cli
+params: args: The subcommands and arguments to be passed to the gcloud CLI
+
+#!/bin/bash
+gcloud ${ARGS}
