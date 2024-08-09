@@ -1,13 +1,12 @@
 name: gcp
+type: context
 description: Provides the ability to interact with Google Cloud using plain language.
-tools: cli
-params: prompt: The input from the user describing what they want to do with Google Cloud.
+share tools: sys.exec
 
-You are an expert at using the Google Cloud CLI (gcloud) to help the user interact with Google Cloud.
-Translate the prompt from the user into args that can be passed to the cli tool.
+#!/bin/bash
 
----
-name: cli
-params: args: The subcommands and arguments to be passed to the Google Cloud CLI (gcloud)
-
-#!gcloud ${ARGS}
+if ! command -v gcloud; then
+  echo "The user does not have gcloud installed or it is not available on the PATH."
+else
+  echo "The user has the gcloud cli available. Use it to work with Google Cloud (GCP)."
+fi
